@@ -45,6 +45,18 @@ function draw() {
     }
   }
 
+  // 在 overlayGraphics 上繪製文字
+  overlayGraphics.fill(255);
+  overlayGraphics.textSize(32);
+  overlayGraphics.textAlign(CENTER, CENTER);
+  overlayGraphics.text('休寧凱老婆', overlayGraphics.width / 2, textY);
+
+  // 更新文字垂直位置
+  textY += textSpeed;
+  if (textY > overlayGraphics.height || textY < 0) {
+    textSpeed *= -1; // 反轉方向
+  }
+
   // 繪製 overlayGraphics 在攝影機畫面上方
   image(overlayGraphics, x, y, capture.width, capture.height);
 }
