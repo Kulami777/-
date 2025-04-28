@@ -10,6 +10,7 @@ function setup() {
   // 初始化攝影機
   capture = createCapture(VIDEO);
   capture.size(windowWidth * 0.8, windowHeight * 0.8);
+  capture.style('transform', 'scaleX(-1)'); // 翻轉攝影機畫面
   capture.hide(); // 隱藏原始的 HTML 視訊元素
 
   // 建立與攝影機畫面相同大小的圖形緩衝區
@@ -35,7 +36,8 @@ function draw() {
     for (let j = 0; j < overlayGraphics.height; j += 20) {
       // 從 capture 中取得對應位置的顏色
       let col = capture.get(i, j);
-      overlayGraphics.fill(col);
+      let gray = (red(col) + green(col) + blue(col)) / 3; // 計算灰色值
+      overlayGraphics.fill(gray);
       overlayGraphics.noStroke();
       overlayGraphics.ellipse(i + 10, j + 10, 15, 15); // 圓的寬與高為 15
     }
