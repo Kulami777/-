@@ -32,15 +32,17 @@ function draw() {
 
   // 更新 overlayGraphics 的內容
   overlayGraphics.clear(); // 清除之前的內容
-  overlayGraphics.fill(255);
-  overlayGraphics.textSize(32);
-  overlayGraphics.textAlign(CENTER, CENTER);
-  overlayGraphics.text('這是休寧凱老婆', overlayGraphics.width / 2, textY);
+  overlayGraphics.background(0); // 設定背景為黑色
 
-  // 更新文字垂直位置
-  textY += textSpeed;
-  if (textY > overlayGraphics.height || textY < 0) {
-    textSpeed *= -1; // 反轉方向
+  // 繪製圓形網格
+  for (let i = 0; i < overlayGraphics.width; i += 20) {
+    for (let j = 0; j < overlayGraphics.height; j += 20) {
+      // 從 capture 中取得對應位置的顏色
+      let col = capture.get(i, j);
+      overlayGraphics.fill(col);
+      overlayGraphics.noStroke();
+      overlayGraphics.ellipse(i + 10, j + 10, 15, 15); // 圓的寬與高為 15
+    }
   }
 
   // 繪製 overlayGraphics 在攝影機畫面上方
