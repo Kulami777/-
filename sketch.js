@@ -1,5 +1,7 @@
 let capture;
 let overlayGraphics;
+let textY = 0; // 文字的垂直位置
+let textSpeed = 2; // 文字移動的速度
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -12,11 +14,6 @@ function setup() {
 
   // 建立與攝影機畫面相同大小的圖形緩衝區
   overlayGraphics = createGraphics(capture.width, capture.height);
-  overlayGraphics.background(255, 0, 0, 100); // 半透明紅色背景
-  overlayGraphics.fill(255);
-  overlayGraphics.textSize(32);
-  overlayGraphics.textAlign(CENTER, CENTER);
-  overlayGraphics.text('Overlay Text', overlayGraphics.width / 2, overlayGraphics.height / 2);
 }
 
 function draw() {
@@ -32,6 +29,19 @@ function draw() {
   scale(-1, 1); // 水平翻轉畫布
   image(capture, x, y, capture.width, capture.height);
   pop();
+
+  // 更新 overlayGraphics 的內容
+  overlayGraphics.clear(); // 清除之前的內容
+  overlayGraphics.fill(255);
+  overlayGraphics.textSize(32);
+  overlayGraphics.textAlign(CENTER, CENTER);
+  overlayGraphics.text('這是休寧凱老婆', overlayGraphics.width / 2, textY);
+
+  // 更新文字垂直位置
+  textY += textSpeed;
+  if (textY > overlayGraphics.height || textY < 0) {
+    textSpeed *= -1; // 反轉方向
+  }
 
   // 繪製 overlayGraphics 在攝影機畫面上方
   image(overlayGraphics, x, y, capture.width, capture.height);
