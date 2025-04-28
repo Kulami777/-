@@ -31,15 +31,19 @@ function draw() {
   overlayGraphics.clear(); // 清除之前的內容
   overlayGraphics.background(0); // 設定背景為黑色
 
-  // 繪製圓形網格
+  // 繪製方框與圓形網格
   for (let i = 0; i < overlayGraphics.width; i += 20) {
     for (let j = 0; j < overlayGraphics.height; j += 20) {
       // 從 capture 中取得對應位置的顏色
       let col = capture.get(i, j);
-      let gray = (red(col) + green(col) + blue(col)) / 3; // 計算灰色值
-      overlayGraphics.fill(gray);
+      let g = green(col); // 保留 G 值
+      overlayGraphics.fill(0, g, 0); // 方框顏色：R 和 B 為 0，G 為原始值
       overlayGraphics.noStroke();
-      overlayGraphics.ellipse(i + 10, j + 10, 15, 15); // 圓的寬與高為 15
+      overlayGraphics.rect(i + 1, j + 1, 18, 18); // 繪製方框，寬高為 18
+
+      // 繪製中間的黑色圓
+      overlayGraphics.fill(0); // 圓的顏色為黑色
+      overlayGraphics.ellipse(i + 10, j + 10, 5, 5); // 圓的直徑為 5
     }
   }
 
